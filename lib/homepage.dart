@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -104,11 +104,15 @@ class _HomepageState extends State<Homepage> {
                               ],
                             ),
                             //
-                            trailing: IconButton(
-                                onPressed: () {
-                                  document.reference.delete();
-                                },
-                                icon: Icon(Icons.delete))
+                            trailing: Row(
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      document.reference.delete();
+                                    },
+                                    icon: Icon(Icons.delete)),
+                              ],
+                            )
                           ),
                         );
                       }).toList(),
