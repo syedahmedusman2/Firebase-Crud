@@ -16,6 +16,7 @@ class _HomepageState extends State<Homepage> {
     FirebaseFirestore.instance.collection('tasks').add({
       'task': taskController.text,
     });
+    taskController.clear();
   }
 
   final Stream<QuerySnapshot> _usersStream =
