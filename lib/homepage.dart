@@ -140,4 +140,58 @@ class _HomepageState extends State<Homepage> {
       ),
     );
   }
+  TextEditingController editTaskController = TextEditingController();
+  void showEditDialog(
+    BuildContext,
+    title,
+    void callb(),
+  ) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit $title'),
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: editTaskController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black38,
+                          ),
+                        ),
+                        label: Text('Enter $title'),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        side: BorderSide(
+                            width: 3,
+                            color: Colors.transparent), //border width and color
+                        elevation: 3, //elevation of button
+                        shape: RoundedRectangleBorder(
+                            //to set border radius to button
+                            borderRadius: BorderRadius.circular(5)),
+                        padding: EdgeInsets.all(20)),
+                    onPressed: () {
+                      callb();
+                      Navigator.pop(context);
+                    },
+                    label: const Text('Edit'),
+                    icon: const Icon(Icons.edit),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }
