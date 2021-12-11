@@ -15,6 +15,7 @@ class _HomepageState extends State<Homepage> {
   addData() async {
     FirebaseFirestore.instance.collection('tasks').add({
       'task': taskController.text,
+      'date': '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day},'
     });
     taskController.clear();
   }
@@ -83,27 +84,22 @@ class _HomepageState extends State<Homepage> {
                             document.data()! as Map<String, dynamic>;
                         return Container(
                           decoration: BoxDecoration(
-                            //                    <-- BoxDecoration
                             border: Border(bottom: BorderSide()),
                           ),
                           child: ListTile(
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                  
+                            title: Text(data['task']),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,                  
                               children: [
                                 SizedBox(height: 5,),
-                                // Text(
-                                //   'Date: ${data['Date']}',
-                                //   style: TextStyle(
-                                //       fontSize: 16.0, fontWeight: FontWeight.bold),
-                                // ),
-                                SizedBox(height: 5,),
-                                // subtitle:
-                                
                                 Text(
-                                  'Task: ${data['task']}',
-                                  style: TextStyle(fontSize: 16.0),
+                                  '${data['date']}',
+                                  style: TextStyle(
+                                      fontSize: 16.0, fontWeight: FontWeight.bold),
                                 ),
+                                SizedBox(height: 5,),
+                                
+                               
                   
                               ],
                             ),
@@ -112,16 +108,7 @@ class _HomepageState extends State<Homepage> {
                                 onPressed: () {
                                   document.reference.delete();
                                 },
-                                icon: Icon(Icons.delete)),
-                  
-                            // trailing: Column(
-                            //   children:[
-                            //     SizedBox(height: 3.0,),
-                  
-                            //   ],
-                  
-                            // ),
-                            // subtitle: Text(data['Morning Rate']),
+                                icon: Icon(Icons.delete))
                           ),
                         );
                       }).toList(),
