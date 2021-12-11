@@ -15,7 +15,8 @@ class _HomepageState extends State<Homepage> {
   addData() async {
     FirebaseFirestore.instance.collection('tasks').add({
       'task': taskController.text,
-      'date': '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day},'
+      'date':
+          '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day},'
     });
     taskController.clear();
   }
@@ -33,53 +34,55 @@ class _HomepageState extends State<Homepage> {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.all(13),
+                margin: const EdgeInsets.all(13),
                 child: Card(
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.0,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                        ),
+                        child: TextField(
+                          controller: taskController,
+                          decoration: const InputDecoration(
+                            hintText: 'Enter Task',
+                          ),
+                        ),
                       ),
-                    ),
-                    child: TextField(
-                      controller: taskController,
-                      decoration: const InputDecoration(
-                       hintText: 'Enter Task',
-                      ),
-                    ),
+                      OutlineButton(
+                        onPressed: () {
+                          addData();
+                        },
+                        child: const Text('Add Task'),
+                      )
+                    ],
                   ),
-                  OutlineButton(
-                    onPressed: () {
-                      addData();
-                    },
-                    child: const Text('Add Task'),
-                  )
-                ],
-              ),
-            )),
-              Expanded(
-                child: StreamBuilder<QuerySnapshot>(
+                )),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
                 stream: _usersStream,
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
                   }
-                  
+
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  
+
                   return Container(
                     child: ListView(
-                      children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
                         return Container(
@@ -89,38 +92,49 @@ class _HomepageState extends State<Homepage> {
                           child: ListTile(
                             title: Text(data['task']),
                             subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,                  
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 5,),
+                                SizedBox(
+                                  height: 5,
+                                ),
                                 Text(
                                   '${data['date']}',
                                   style: TextStyle(
-                                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(height: 5,),
-                                
-                               
-                  
+                                SizedBox(
+                                  height: 5,
+                                ),
                               ],
                             ),
+
                             //
-                            trailing: Row(
-                              children: [
+                            // trailing:
+
+                            trailing: Wrap(
+                              spacing: 1, // space between two icons
+                              children: <Widget>[
                                 IconButton(
                                     onPressed: () {
                                       document.reference.delete();
                                     },
                                     icon: Icon(Icons.delete)),
+                                IconButton(
+                                    onPressed: () {
+                                      document.reference.delete();
+                                    },
+                                    icon: Icon(Icons.edit)),
                               ],
-                            )
+                            ),
                           ),
                         );
                       }).toList(),
                     ),
                   );
                 },
-                          ),
               ),
+            ),
           ],
         ),
       ),
