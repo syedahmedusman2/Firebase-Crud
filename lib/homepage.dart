@@ -10,6 +10,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  TextEditingController taskController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +29,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: taskController,                
+                  decoration: const InputDecoration(
                     hintText: 'Enter Task',
                   ),
                 ),
