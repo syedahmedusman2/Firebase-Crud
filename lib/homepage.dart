@@ -165,7 +165,7 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.black38,
                           ),
                         ),
-                        label: Text('Edit $title'),
+                        hintText: 'Edit $title',
                       ),
                     ),
                   ),
