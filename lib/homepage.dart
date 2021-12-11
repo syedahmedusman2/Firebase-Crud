@@ -158,7 +158,6 @@ class _HomepageState extends State<Homepage> {
                   Container(
                     margin: EdgeInsets.all(8),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       controller: editTaskController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
