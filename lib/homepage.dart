@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -10,7 +12,22 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Column(
+      children: [
+        Container(
+          child: Card(
+            child: Column(children: [
+              Container(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter Task',
+                  ),
+                ),
+              )
+            ],),
+          )
+        )
+      ],
       
     );
   }
