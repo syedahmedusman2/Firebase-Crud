@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({ Key? key }) : super(key: key);
+  const Homepage({Key? key}) : super(key: key);
 
   @override
   _HomepageState createState() => _HomepageState();
@@ -15,20 +15,28 @@ class _HomepageState extends State<Homepage> {
     return Column(
       children: [
         Container(
-          child: Card(
-            child: Column(children: [
+            child: Card(
+          child: Column(
+            children: [
               Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                decoration:BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border:Border.all(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                ),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Enter Task',
                   ),
                 ),
               )
-            ],),
-          )
-        )
+            ],
+          ),
+        ))
       ],
-      
     );
   }
 }
