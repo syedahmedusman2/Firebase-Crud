@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -11,6 +12,12 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   TextEditingController taskController = TextEditingController();
+  addData()async{
+    FirebaseFirestore.instance.collection('tasks').add({
+      'task':taskController.text,
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +41,10 @@ class _HomepageState extends State<Homepage> {
                     hintText: 'Enter Task',
                   ),
                 ),
-              )
+              ),
+              OutlineButton(onPressed: (){
+                addData();
+              },child: const Text('Add Task'),)
             ],
           ),
         ))
