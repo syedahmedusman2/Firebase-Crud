@@ -122,7 +122,12 @@ class _HomepageState extends State<Homepage> {
                                     icon: Icon(Icons.delete)),
                                 IconButton(
                                     onPressed: () {
-                                      showEditDialog(BuildContext,data['task'], ()=>document.reference.update({'task':editTaskController.text}));
+                                      showEditDialog(
+                                          BuildContext,
+                                          data['task'],
+                                          () => document.reference.update({
+                                                'task': editTaskController.text
+                                              }));
                                     },
                                     icon: Icon(Icons.edit)),
                               ],
@@ -140,6 +145,7 @@ class _HomepageState extends State<Homepage> {
       ),
     );
   }
+
   TextEditingController editTaskController = TextEditingController();
   void showEditDialog(
     BuildContext,
