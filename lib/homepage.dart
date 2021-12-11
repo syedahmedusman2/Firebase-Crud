@@ -12,12 +12,14 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   TextEditingController taskController = TextEditingController();
-  addData()async{
+  addData() async {
     FirebaseFirestore.instance.collection('tasks').add({
-      'task':taskController.text,
+      'task': taskController.text,
     });
-
+    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('tasks')
+        .snapshots();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,23 +30,26 @@ class _HomepageState extends State<Homepage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
-                decoration:BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  border:Border.all(
+                  border: Border.all(
                     color: Colors.black,
                     width: 1.0,
                   ),
                 ),
                 child: TextField(
-                  controller: taskController,                
+                  controller: taskController,
                   decoration: const InputDecoration(
                     hintText: 'Enter Task',
                   ),
                 ),
               ),
-              OutlineButton(onPressed: (){
-                addData();
-              },child: const Text('Add Task'),)
+              OutlineButton(
+                onPressed: () {
+                  addData();
+                },
+                child: const Text('Add Task'),
+              )
             ],
           ),
         ))
