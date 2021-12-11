@@ -122,7 +122,7 @@ class _HomepageState extends State<Homepage> {
                                     icon: Icon(Icons.delete)),
                                 IconButton(
                                     onPressed: () {
-                                      document.reference.delete();
+                                      showEditDialog(BuildContext,data['task'], ()=>document.reference.update({'task':editTaskController.text}));
                                     },
                                     icon: Icon(Icons.edit)),
                               ],
@@ -150,7 +150,7 @@ class _HomepageState extends State<Homepage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Edit $title'),
+            title: Text('Edit Task'),
             content: Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: Column(
@@ -166,7 +166,7 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.black38,
                           ),
                         ),
-                        label: Text('Enter $title'),
+                        label: Text('Edit $title'),
                       ),
                     ),
                   ),
@@ -184,6 +184,7 @@ class _HomepageState extends State<Homepage> {
                     onPressed: () {
                       callb();
                       Navigator.pop(context);
+                      editTaskController.clear();
                     },
                     label: const Text('Edit'),
                     icon: const Icon(Icons.edit),
